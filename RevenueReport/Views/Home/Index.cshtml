@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    @using System.Data
+    @using RevenueReport.ModelsGenerated
+    @model DataTable
+}
+
+<style>
+    #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
+</style>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+
+    @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+    {
+        <label >From Date</label>
+        <input type="date" name="fromdate" id="fromdate" />
+        <label >To Date</label>
+        <input type="date" name="todate" id="todate" />
+
+        <input type="submit" value="Search" />
+    }
+
+    <table id="customers">
+        <tr>
+            @foreach (DataColumn col in Model.Columns)
+            {
+                <th>@col.ColumnName</th>
+            }
+
+        </tr>
+        @foreach (DataRow row in Model.Rows)
+        {
+            <tr>
+                @foreach (DataColumn col in Model.Columns)
+                {
+                    <td>@row[col.ColumnName]</td>
+                }
+            </tr>
+        }
+    </table>
+
+</div>
+
+<script>
+   
+</script>
